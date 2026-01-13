@@ -1,0 +1,3 @@
+/home/hacker/C++Project/Kreques_v1.0/build/CMakeFiles/krequest_app.dir
+/home/hacker/C++Project/Kreques_v1.0/build/CMakeFiles/edit_cache.dir
+/home/hacker/C++Project/Kreques_v1.0/build/CMakeFiles/rebuild_cache.dir
