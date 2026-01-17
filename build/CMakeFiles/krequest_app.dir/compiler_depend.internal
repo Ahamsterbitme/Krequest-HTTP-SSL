@@ -4,8 +4,8 @@
 CMakeFiles/krequest_app.dir/test/main.cpp.o
  /home/hacker/C++Project/Kreques_v1.0/test/main.cpp
  /home/hacker/C++Project/Kreques_v1.0/src/Krequest.h
- /home/hacker/C++Project/Kreques_v1.0/src/request/Krequest_request.h
- /home/hacker/C++Project/Kreques_v1.0/src/method/method_model.h
+ /home/hacker/C++Project/Kreques_v1.0/src/method/object_templates.h
+ /home/hacker/C++Project/Kreques_v1.0/src/request/Krequest-request.h
  /usr/include/alloca.h
  /usr/include/arpa/inet.h
  /usr/include/asm-generic/bitsperlong.h

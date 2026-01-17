@@ -3,8 +3,8 @@
 
 CMakeFiles/krequest_app.dir/test/main.cpp.o: /home/hacker/C++Project/Kreques_v1.0/test/main.cpp \
   /home/hacker/C++Project/Kreques_v1.0/src/Krequest.h \
-  /home/hacker/C++Project/Kreques_v1.0/src/request/Krequest_request.h \
-  /home/hacker/C++Project/Kreques_v1.0/src/method/method_model.h \
+  /home/hacker/C++Project/Kreques_v1.0/src/method/object_templates.h \
+  /home/hacker/C++Project/Kreques_v1.0/src/request/Krequest-request.h \
   /usr/include/alloca.h \
   /usr/include/arpa/inet.h \
   /usr/include/asm-generic/bitsperlong.h \
@@ -1851,6 +1851,12 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 
 /usr/include/boost/asio/associated_cancellation_slot.hpp:
 
+/usr/include/boost/asio/associated_allocator.hpp:
+
+/usr/include/bits/ioctls.h:
+
+/usr/include/boost/asio/impl/read.hpp:
+
 /usr/include/boost/asio/detail/array_fwd.hpp:
 
 /usr/include/boost/asio/io_context_strand.hpp:
@@ -2047,6 +2053,10 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 
 /usr/include/bits/floatn-common.h:
 
+/home/hacker/C++Project/Kreques_v1.0/src/request/Krequest-request.h:
+
+/usr/include/boost/asio/detail/posix_event.hpp:
+
 /usr/include/bits/confname.h:
 
 /usr/include/bits/byteswap.h:
@@ -2091,24 +2101,6 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 
 /usr/include/bits/termios-c_iflag.h:
 
-/usr/include/boost/asio/detail/call_stack.hpp:
-
-/usr/include/bits/environments.h:
-
-/usr/include/bits/types/struct_FILE.h:
-
-/usr/include/boost/asio/associated_allocator.hpp:
-
-/usr/include/bits/ioctls.h:
-
-/usr/include/boost/asio/impl/read.hpp:
-
-/home/hacker/C++Project/Kreques_v1.0/src/method/method_model.h:
-
-/usr/include/boost/asio/buffered_write_stream.hpp:
-
-/usr/include/bits/types/__fpos64_t.h:
-
 /usr/include/boost/asio/basic_raw_socket.hpp:
 
 /usr/include/bits/fcntl.h:
@@ -2130,6 +2122,10 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 /usr/include/bits/time.h:
 
 /usr/include/asm/posix_types_64.h:
+
+/usr/include/bits/types/struct_FILE.h:
+
+/usr/include/bits/environments.h:
 
 /usr/include/c++/15.2.1/iomanip:
 
@@ -2156,6 +2152,10 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 /usr/include/bits/wctype-wchar.h:
 
 /usr/include/bits/stdint-intn.h:
+
+/home/hacker/C++Project/Kreques_v1.0/src/method/object_templates.h:
+
+/usr/include/boost/asio/detail/call_stack.hpp:
 
 /usr/include/bits/pthread_stack_min-dynamic.h:
 
@@ -2381,6 +2381,8 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 
 /usr/include/boost/asio/query.hpp:
 
+/usr/include/bits/types/__fpos64_t.h:
+
 /usr/include/bits/socket.h:
 
 /usr/include/bits/in.h:
@@ -2454,6 +2456,8 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 /usr/include/openssl/sslerr_legacy.h:
 
 /usr/include/boost/asio/serial_port.hpp:
+
+/usr/include/boost/asio/buffered_write_stream.hpp:
 
 /usr/include/bits/types/clock_t.h:
 
@@ -2637,8 +2641,6 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 
 /usr/include/boost/asio/detail/pop_options.hpp:
 
-/usr/include/boost/asio/detail/posix_event.hpp:
-
 /usr/include/boost/asio/detail/posix_mutex.hpp:
 
 /usr/include/boost/asio/detail/impl/strand_service.hpp:
@@ -2818,8 +2820,6 @@ CMakeFiles/krequest_app.dir/test/main.cpp.o:
 /usr/include/c++/15.2.1/bits/stl_function.h:
 
 /usr/include/c++/15.2.1/bits/chrono.h:
-
-/home/hacker/C++Project/Kreques_v1.0/src/request/Krequest_request.h:
 
 /usr/include/boost/asio/is_contiguous_iterator.hpp:
 

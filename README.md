@@ -8,14 +8,16 @@
 
 <!-- English Version -->
 <div id="en">
-    <h2>Version Introduction</h2>
+    <h2>Ve1rsion Introduction</h2>
     <ul>
         <li>This is a beta version implementing core functionality with minimal Boost.Asio usage</li>
         <li>Beta API features are limited. VisualUI updates tomorrow, Krequest maintenance every other day</li>
         <li>Please understand the update pace - balancing sleep, psychology, and development 😁</li>
     </ul>
 
-<h2>Framework Introduction</h2>
+<h3>Framework Introduction </h3>
+<h5>Update - January 17, 2026 [UTC-8]</h5>
+<div> <ul> <li>I completely rewrote all the code, including the request and template layers. Sometimes I wonder if my brain just isn’t smart enough—it was really tough. I guess I still have a lot to improve on.</li> <li>I changed the SSL calling method from a pure Boolean type call to request-type based calls, such as `SSLClientGet`, `SSLClientPost`, `HttpClientGet`, etc. This makes the structure more flexible and prevents the architecture from collapsing when adding new features.</li> <li>Also, I recommend not creating method objects using raw pointers—that’s risky. Please use `shared_ptr` to create them, or `unique_ptr` if you don’t want the object to be copied.</li> <div> And thank you all for following along. I’ll keep updating. If I’m slow, don’t worry—I’m probably just scratching my head in front of the computer, struggling with CMake errors… that’s a secret 🌚 </div> </ul> </div>
 <img src="github-picture/logo/logo.png" alt="logo">
 <h4>Framework Name: Krequest</h4>
 <span>Author: KwzDev</span><br>
@@ -33,25 +35,77 @@
 
 ```cpp
 #include "../src/Krequest.h"
-#include <string>
-#include <iostream>
+#include <memory>
 
 using namespace std;
-using namespace Krequest;
-using namespace Krequest::RequestMethod;
+using namespace KING::Krequest::RequestMethod;
+using namespace KING::Krequest;
 
-int main() {
-    Krequest::HttpClient http;
-    http.SetClientDomain("example.com")
-        .SetClientContentType("application/json") // Your content type
-        .SetClientMethod(RequestMethod::Get) // Currently supports Get, Post
-        .SetClientSSL(true); // false = HTTP, true = HTTPS
+int main () {
+
+    string makejson = "{\"name\" : \"jack\"}"; //test json
+
+    //SSL request Get
+    auto SSLGET = make_shared<Krequest::SSLClientGet>(); //make method object
+    SSLGET->SetClientDomain("xxx.com") //settings domain
+        .SetClientPath("/") //settings request api path 
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .StartRequest();
+        const string status_code = SSLGET -> GetStatusCode();
+        const string http_version = SSLGET -> GetHttpVersion();
+        const string status_message = SSLGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code << "\n"
+             << "HTTP VERSION : " << http_version << "\n"
+             << "STATUS MESSAGE : " << status_message 
+             << std::endl;
     
-    auto body = http.Request(); // Returns response data
-    const string status_code = http.GetStatusGetCode();
+    //SSL request Post
+    auto SSLPOST = make_shared<Krequest::SSLClientPost>(); //make method object
+    SSLGET->SetClientDomain("xxx.com") //settings domain
+        .SetClientPath("/api/v1/xxx") //settings request api path 
+        .SetClientContentType("application/json") //setting fetch type
+        .AddClientHeader("author", "kezDev") //add request headers
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .SetRequestBody(makejson)
+        .StartRequest();
+        const string status_code_post = SSLGET -> GetStatusCode();
+        const string http_version_post = SSLGET -> GetHttpVersion();
+        const string status_message_post = SSLGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_post << "\n"
+             << "HTTP VERSION : " << http_version_post << "\n"
+             << "STATUS MESSAGE : " << status_message_post 
+             << std::endl;
     
-    // For JSON, use json-cpp or your preferred parser
-    // The library returns raw response data
+    //Base http Get
+    auto HTTPGET = make_shared<Krequest::HttpClientGet>();
+    HTTPGET->SetClientDomain("xxx.com")
+        .SetClientPath("/")
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .StartRequest();
+        const string status_code_http_get = HTTPGET -> GetStatusCode();
+        const string http_version_http_get = HTTPGET -> GetHttpVersion();
+        const string status_message_http_get = HTTPGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_http_get << "\n"
+             << "HTTP VERSION : " << http_version_http_get << "\n"
+             << "STATUS MESSAGE : " << status_message_http_get 
+             << std::endl;
+
+    //Base http Get 
+    auto HTTPPOST = make_shared<Krequest::HttpClientPost>();
+    HTTPPOST->SetClientDomain("xxx.com")
+        .SetClientPath("/api/xxx")
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .AddClientHeader("author", "kwzDev")
+        .SetClientContentType("application/json")
+        .SetRequestBody(makejson)
+        .StartRequest();
+        const string status_code_http_post = HTTPPOST -> GetStatusCode();
+        const string http_version_http_post = HTTPPOST -> GetHttpVersion();
+        const string status_message_http_post = HTTPPOST -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_http_post << "\n"
+             << "HTTP VERSION : " << http_version_http_post << "\n"
+             << "STATUS MESSAGE : " << status_message_http_post 
+             << std::endl;
 }
 ```
 <h2>My Development Journey 😅</h2>
@@ -80,6 +134,18 @@ any issues directly!</p>
         <li>Пожалуйста, поймите темп обновлений - балансирую между сном, психологией и разработкой 😁</li>
     </ul>
 
+**Обновление — 17 января 2026 г. [UTC-8]**
+<div>
+    <ul>
+        <li>Я полностью переписал весь код, включая слои запросов и шаблонов. Иногда кажется, что мой мозг просто недостаточно сообразителен — это было действительно сложно. Видимо, мне ещё есть куда расти.</li>
+        <li>Изменил метод вызова SSL с чисто булевого типа на вызовы по типу запросов, такие как `SSLClientGet`, `SSLClientPost`, `HttpClientGet` и т.д. Это делает структуру более гибкой и предотвращает "обрушение" архитектуры при добавлении новых функций.</li>
+        <li>Также рекомендую не создавать объекты методов с использованием "сырых" указателей — это рискованно. Пожалуйста, используйте `shared_ptr`, а если не хотите, чтобы объект копировался — `unique_ptr`.</li>
+        <div>
+            И спасибо всем, кто следит за обновлениями. Я продолжу работу. Если что-то выходит медленно, не переживайте — скорее всего, я просто сижу перед компьютером и ломаю голову над ошибками CMake… но это секрет 🌚
+        </div>
+    </ul>
+</div>
+
 <h2>О фреймворке</h2>
     <img src="github-picture/logo/logo.png" alt="логотип">
     <h4>Название: Krequest</h4>
@@ -96,25 +162,77 @@ any issues directly!</p>
 
 ```cpp
 #include "../src/Krequest.h"
-#include <string>
-#include <iostream>
+#include <memory>
 
 using namespace std;
-using namespace Krequest;
-using namespace Krequest::RequestMethod;
+using namespace KING::Krequest::RequestMethod;
+using namespace KING::Krequest;
 
-int main() {
-    Krequest::HttpClient http;
-    http.SetClientDomain("example.com")
-        .SetClientContentType("application/json") // Ваш Content-Type
-        .SetClientMethod(RequestMethod::Get) // Пока поддерживает Get, Post
-        .SetClientSSL(true); // false = HTTP, true = HTTPS
+int main () {
+
+    string makejson = "{\"name\" : \"jack\"}"; //test json
+
+    //SSL request Get
+    auto SSLGET = make_shared<Krequest::SSLClientGet>(); //make method object
+    SSLGET->SetClientDomain("xxx.com") //settings domain
+        .SetClientPath("/") //settings request api path 
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .StartRequest();
+        const string status_code = SSLGET -> GetStatusCode();
+        const string http_version = SSLGET -> GetHttpVersion();
+        const string status_message = SSLGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code << "\n"
+             << "HTTP VERSION : " << http_version << "\n"
+             << "STATUS MESSAGE : " << status_message 
+             << std::endl;
     
-    auto body = http.Request(); // Возвращает данные ответа
-    const string status_code = http.GetStatusGetCode();
+    //SSL request Post
+    auto SSLPOST = make_shared<Krequest::SSLClientPost>(); //make method object
+    SSLGET->SetClientDomain("xxx.com") //settings domain
+        .SetClientPath("/api/v1/xxx") //settings request api path 
+        .SetClientContentType("application/json") //setting fetch type
+        .AddClientHeader("author", "kezDev") //add request headers
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .SetRequestBody(makejson)
+        .StartRequest();
+        const string status_code_post = SSLGET -> GetStatusCode();
+        const string http_version_post = SSLGET -> GetHttpVersion();
+        const string status_message_post = SSLGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_post << "\n"
+             << "HTTP VERSION : " << http_version_post << "\n"
+             << "STATUS MESSAGE : " << status_message_post 
+             << std::endl;
     
-    // Для JSON используйте json-cpp или ваш парсер
-    // Библиотека возвращает сырые данные ответа
+    //Base http Get
+    auto HTTPGET = make_shared<Krequest::HttpClientGet>();
+    HTTPGET->SetClientDomain("xxx.com")
+        .SetClientPath("/")
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .StartRequest();
+        const string status_code_http_get = HTTPGET -> GetStatusCode();
+        const string http_version_http_get = HTTPGET -> GetHttpVersion();
+        const string status_message_http_get = HTTPGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_http_get << "\n"
+             << "HTTP VERSION : " << http_version_http_get << "\n"
+             << "STATUS MESSAGE : " << status_message_http_get 
+             << std::endl;
+
+    //Base http Get 
+    auto HTTPPOST = make_shared<Krequest::HttpClientPost>();
+    HTTPPOST->SetClientDomain("xxx.com")
+        .SetClientPath("/api/xxx")
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .AddClientHeader("author", "kwzDev")
+        .SetClientContentType("application/json")
+        .SetRequestBody(makejson)
+        .StartRequest();
+        const string status_code_http_post = HTTPPOST -> GetStatusCode();
+        const string http_version_http_post = HTTPPOST -> GetHttpVersion();
+        const string status_message_http_post = HTTPPOST -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_http_post << "\n"
+             << "HTTP VERSION : " << http_version_http_post << "\n"
+             << "STATUS MESSAGE : " << status_message_http_post 
+             << std::endl;
 }
 ```
 
@@ -147,6 +265,17 @@ int main() {
 </div>
 
 <div>
+<h3>更新 - 2026 年 1 月 17日 [UTC-8]</h3>
+        <div>
+            <ul>
+                <li>我重写了全部包括请求层与模板层真有点怀疑自己的脑子是不是不太聪明,真的太难了,我觉得自己还得继续提升</li>
+                <li>我将SSL的调用方法从纯Bool类型调用改变层了请求类型比如 SSLClientGet , SSLClientPost , HttpClientGet ...等这样灵活性比较强大不因为加入新的功能架构崩塌</li>
+                <li>以及我推荐大家不用纯裸体指针创建方法对象这很危险请用shared_ptr创建如果不想被复制请用 unique_ptr创建对象</li>
+                <div>
+                    以及在这感谢大家的关注,我会持续更新我如果更新慢不要怀疑我多半在电脑面前挠头毕竟CMake报错......这是秘密🌚
+                </div>
+            </ul>
+        </div>
     <h2>框架介绍</h2>
     <img src="github-picture/logo/logo.png" alt="logo">
     <h4>框架名: Krequest</h4>
@@ -164,25 +293,78 @@ int main() {
 
 ```cpp     
 #include "../src/Krequest.h"
-#include <string>
-#include <iostream>
+#include <memory>
 
 using namespace std;
-using namespace Krequest;
-using namespace Krequest::RequestMethod;
+using namespace KING::Krequest::RequestMethod;
+using namespace KING::Krequest;
 
 int main () {
-    Krequest::HttpClient http;
-    http.SetClientDomain("域名")
-        .SetClientContentType("Contnet-Type : application/json") //填写你的请求获取参数类型
-        .SetClientMethod(RequestMethod::Get) //暂时支持 Get , Post
-        .SetClientSSL(true); //false 关闭 SSL支持 true 开启SSL支持
-    auto body = http.Request(); //这里会返回响应数据,需要一个变量接收
-    const string status_code = http.GetStatusGetCode(); //这里因为一些设计问题需要指定方法获取 注意 '你需要自己清楚你获取的响应是什么(图片,视频,音频,文件)!对应你自己的工具解析 这里只会完好无损的返回服务器响应数据'
 
-    //如果是Json 推荐 使用 jsono-cpp 或者其他JSON解析库 获取Body值
+    string makejson = "{\"name\" : \"jack\"}"; //test json
+
+    //SSL request Get
+    auto SSLGET = make_shared<Krequest::SSLClientGet>(); //make method object
+    SSLGET->SetClientDomain("xxx.com") //settings domain
+        .SetClientPath("/") //settings request api path 
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .StartRequest();
+        const string status_code = SSLGET -> GetStatusCode();
+        const string http_version = SSLGET -> GetHttpVersion();
+        const string status_message = SSLGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code << "\n"
+             << "HTTP VERSION : " << http_version << "\n"
+             << "STATUS MESSAGE : " << status_message 
+             << std::endl;
+    
+    //SSL request Post
+    auto SSLPOST = make_shared<Krequest::SSLClientPost>(); //make method object
+    SSLGET->SetClientDomain("xxx.com") //settings domain
+        .SetClientPath("/api/v1/xxx") //settings request api path 
+        .SetClientContentType("application/json") //setting fetch type
+        .AddClientHeader("author", "kezDev") //add request headers
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .SetRequestBody(makejson)
+        .StartRequest();
+        const string status_code_post = SSLGET -> GetStatusCode();
+        const string http_version_post = SSLGET -> GetHttpVersion();
+        const string status_message_post = SSLGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_post << "\n"
+             << "HTTP VERSION : " << http_version_post << "\n"
+             << "STATUS MESSAGE : " << status_message_post 
+             << std::endl;
+    
+    //Base http Get
+    auto HTTPGET = make_shared<Krequest::HttpClientGet>();
+    HTTPGET->SetClientDomain("xxx.com")
+        .SetClientPath("/")
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .StartRequest();
+        const string status_code_http_get = HTTPGET -> GetStatusCode();
+        const string http_version_http_get = HTTPGET -> GetHttpVersion();
+        const string status_message_http_get = HTTPGET -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_http_get << "\n"
+             << "HTTP VERSION : " << http_version_http_get << "\n"
+             << "STATUS MESSAGE : " << status_message_http_get 
+             << std::endl;
+
+    //Base http Get 
+    auto HTTPPOST = make_shared<Krequest::HttpClientPost>();
+    HTTPPOST->SetClientDomain("xxx.com")
+        .SetClientPath("/api/xxx")
+        .SetUserAgent("Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0")
+        .AddClientHeader("author", "kwzDev")
+        .SetClientContentType("application/json")
+        .SetRequestBody(makejson)
+        .StartRequest();
+        const string status_code_http_post = HTTPPOST -> GetStatusCode();
+        const string http_version_http_post = HTTPPOST -> GetHttpVersion();
+        const string status_message_http_post = HTTPPOST -> GetStatusMessage();
+        cout << "STATUS CODE : " << status_code_http_post << "\n"
+             << "HTTP VERSION : " << http_version_http_post << "\n"
+             << "STATUS MESSAGE : " << status_message_http_post 
+             << std::endl;
 }
-
 ```
 <h2>我的绝望心理😅</h2>
 <p>这个我真的要说太牛逼了,我写的时候Ide不报错当我开心准备编译时候......<br>

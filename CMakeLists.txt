@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(OpenSSL REQUIRED)
 
 add_executable(krequest_app
-  ../src/method/method_model.h
-  ../src/request/Krequest_request.h
+  ../src/method/object_templates.h
+  ../src/request/Krequest-request.h
   ../src/Krequest.h
   ../test/main.cpp
 )
