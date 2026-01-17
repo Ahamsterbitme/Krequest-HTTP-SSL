@@ -8,7 +8,7 @@
 
 <!-- English Version -->
 <div id="en">
-    <h2>Ve1rsion Introduction</h2>
+    <h2>Version Introduction</h2>
     <ul>
         <li>This is a beta version implementing core functionality with minimal Boost.Asio usage</li>
         <li>Beta API features are limited. VisualUI updates tomorrow, Krequest maintenance every other day</li>
