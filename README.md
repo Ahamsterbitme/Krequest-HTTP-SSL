@@ -61,7 +61,7 @@ int main () {
     
     //SSL request Post
     auto SSLPOST = make_shared<Krequest::SSLClientPost>(); //make method object
-    SSLGET->SetClientDomain("xxx.com") //settings domain
+    SSLPOST->SetClientDomain("xxx.com") //settings domain
         .SetClientPath("/api/v1/xxx") //settings request api path 
         .SetClientContentType("application/json") //setting fetch type
         .AddClientHeader("author", "kezDev") //add request headers
@@ -90,7 +90,7 @@ int main () {
              << "STATUS MESSAGE : " << status_message_http_get 
              << std::endl;
 
-    //Base http Get 
+    //Base http POST
     auto HTTPPOST = make_shared<Krequest::HttpClientPost>();
     HTTPPOST->SetClientDomain("xxx.com")
         .SetClientPath("/api/xxx")
