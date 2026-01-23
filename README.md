@@ -8,6 +8,7 @@
 
 <!-- English Version -->
 <div id="en">
+<p>I have some physical problems recently, and I have to update it after a while. Please be patient and wait</p>
     <h2>Version Introduction</h2>
     <ul>
         <li>This is a beta version implementing core functionality with minimal Boost.Asio usage</li>
