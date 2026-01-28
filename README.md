@@ -8,7 +8,7 @@
 
 <!-- English Version -->
 <div id="en">
-<p>I have some physical problems recently, and I have to update it after a while. Please be patient and wait</p>
+<p>I stopped because of some car accidents, but everything went well. I can continue to write code now, wait for my update</p>
     <h2>Version Introduction</h2>
     <ul>
         <li>This is a beta version implementing core functionality with minimal Boost.Asio usage</li>
